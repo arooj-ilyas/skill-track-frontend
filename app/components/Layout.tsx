@@ -19,9 +19,8 @@ export default function Layout({ children }: LayoutProps) {
           <Link href="/programs" className="hover:underline">
             Programs
           </Link>
-          <Link href="/login" className="hover:underline">
-            Login
-            {/* will dynamically render to logout when auth details implemented */}
+          <Link href="/" className="hover:underline">
+            Log Out
           </Link>
         </nav>
       </header>
