@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50">
-      <Card className="w-380">
+      <Card className="w-[380px]">
         <CardHeader>
           <CardTitle className="text-center">Login to SkillTrack</CardTitle>
         </CardHeader>
