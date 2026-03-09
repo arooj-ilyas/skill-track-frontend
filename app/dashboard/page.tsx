@@ -1,45 +1,42 @@
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Layout from "../components/Layout";
 
 export default function DashboardPage() {
+  const stats = [
+    { title: "Programs", value: 5 },
+    { title: "Completed", value: 2 },
+    { title: "Overdue Tasks", value: 1, isRed: true },
+  ];
+
   return (
-    <div className="min-h-screen bg-zinc-50 p-10">
+    <Layout>
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
-      <div className="grid grid-cols-3 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Programs</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl">5</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Completed</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl">2</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Overdue Tasks</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl text-red-500">1</p>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {stats.map((stat) => (
+          <Card
+            key={stat.title}
+            className="shadow-md hover:shadow-lg transition"
+          >
+            <CardHeader>
+              <CardTitle>{stat.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className={`text-3xl ${stat.isRed ? "text-red-500" : ""}`}>
+                {stat.value}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       <div className="mt-10">
-        <a href="/programs">
+        <Link href="/programs">
           <Button>View Training Programs</Button>
-        </a>
+        </Link>
       </div>
-    </div>
+    </Layout>
   );
 }
