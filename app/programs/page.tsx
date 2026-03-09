@@ -1,3 +1,6 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 export default function ProgramsPage() {
   const programs = [
     { id: 1, title: "Employee Onboarding", modules: 5 },
@@ -11,16 +14,17 @@ export default function ProgramsPage() {
 
       <div className="grid grid-cols-3 gap-6">
         {programs.map((program) => (
-          <div
-            key={program.id}
-            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h2 className="text-xl font-semibold">{program.title}</h2>
+          <Card key={program.id}>
+            <CardHeader>
+              <CardTitle>{program.title}</CardTitle>
+            </CardHeader>
 
-            <p className="text-zinc-500 mt-2">{program.modules} modules</p>
+            <CardContent>
+              <p className="text-zinc-500">{program.modules} modules</p>
 
-            <button className="mt-4 text-blue-600">View Program</button>
-          </div>
+              <Button className="mt-4">View Program</Button>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>
