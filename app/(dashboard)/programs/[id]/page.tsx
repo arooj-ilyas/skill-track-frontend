@@ -82,9 +82,9 @@ export default async function ProgramDetailPage({
                 return (
                   <Card
                     key={module.id}
-                    className={`group border-2 transition-all duration-200 shadow-sm ${
+                    className={`group border transition-all duration-200 shadow-sm ${
                       isCompleted
-                        ? "border-transparent opacity-90"
+                        ? "bg-emerald-50 border-transparent opacity-90"
                         : "border-transparent hover:border-amber-500 cursor-pointer"
                     }`}
                   >
@@ -151,10 +151,10 @@ export default async function ProgramDetailPage({
                 {program.tasks?.map((task) => (
                   <Card
                     key={task.id}
-                    className={`border-2 transition-all duration-200 ${
+                    className={`border transition-all duration-200 ${
                       task.isSubmitted
-                        ? "bg-emerald-50/30 border-emerald-100 opacity-90"
-                        : "bg-orange-50/30 border-orange-100 hover:border-amber-500 cursor-pointer"
+                        ? "bg-emerald-50 opacity-90"
+                        : "border-orange-100 hover:border-amber-500 cursor-pointer"
                     }`}
                   >
                     <CardContent className="p-4 flex items-center justify-between">
