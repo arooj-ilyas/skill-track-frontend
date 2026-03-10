@@ -29,6 +29,7 @@ export const MOCK_PROGRAMS = [
     tasks: [
       {
         id: "t1",
+        programId: "p1",
         title: "Safety Protocol Quiz",
         dueAt: "2026-04-05",
         isSubmitted: true,

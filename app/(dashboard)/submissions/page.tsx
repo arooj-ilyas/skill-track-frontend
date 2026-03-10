@@ -12,12 +12,10 @@ import {
 import { MOCK_SUBMISSIONS, MOCK_PROGRAMS } from "@/lib/mockData";
 
 export default function SubmissionsPage() {
-  // In a real app, you'd filter by the logged-in user's ID
   const submissions = MOCK_SUBMISSIONS;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900">
           My Submissions
@@ -29,10 +27,12 @@ export default function SubmissionsPage() {
 
       <div className="grid gap-6">
         {submissions.map((sub) => {
-          // Helper to find the Task Title from our other mock data
+          // 1. Find the parent program using the taskId
           const program = MOCK_PROGRAMS.find((p) =>
             p.tasks?.some((t) => t.id === sub.taskId),
           );
+
+          // 2. Find the specific task to get its title
           const task = program?.tasks?.find((t) => t.id === sub.taskId);
 
           const isReviewed = sub.status === "REVIEWED";
@@ -41,16 +41,16 @@ export default function SubmissionsPage() {
           return (
             <Card
               key={sub.id}
-              className={`border-2 transition-all duration-200 ${
+              className={`border-2 transition-all duration-200 bg-white ${
                 isReviewed
-                  ? "hover:border-emerald-500 hover:bg-emerald-50"
-                  : "hover:border-amber-500 hover:bg-amber-50"
+                  ? "hover:border-emerald-500 shadow-sm"
+                  : "hover:border-amber-500 shadow-sm"
               }`}
             >
               <CardHeader className="pb-4 border-b border-zinc-50 bg-zinc-50/50">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 mb-1">
                       <Badge
                         className={`border-none ${
                           isReviewed
@@ -60,10 +60,15 @@ export default function SubmissionsPage() {
                       >
                         {isReviewed ? "Reviewed" : "Pending Review"}
                       </Badge>
-                      <span className="text-[10px] text-zinc-400 font-mono uppercase tracking-widest">
-                        Ref: {sub.id}
-                      </span>
+
+                      {/* Displaying Program Name Badge */}
+                      {program && (
+                        <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest bg-amber-50 px-2 py-1 rounded border border-amber-100">
+                          {program.title}
+                        </span>
+                      )}
                     </div>
+
                     <CardTitle className="text-xl text-zinc-900">
                       {task?.title || "Unknown Assignment"}
                     </CardTitle>
