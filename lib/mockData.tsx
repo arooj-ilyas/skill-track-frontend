@@ -30,7 +30,7 @@ export const MOCK_PROGRAMS = [
       {
         id: "t1",
         title: "Safety Protocol Quiz",
-        dueAt: "2026-04-01",
+        dueAt: "2026-04-05",
         isSubmitted: true,
       },
       {
@@ -63,6 +63,43 @@ export const MOCK_PROGRAMS = [
     ],
     tasks: [],
   },
+  {
+    id: "p3",
+    title: "Hooks & States",
+    description:
+      "Learn all about hooks & states, what they are and how to implement them",
+    modules: [
+      {
+        id: "m1",
+        title: "Understanding Hooks",
+        order: 1,
+        isCompleted: false,
+        isStarted: false,
+      }, // Review
+      {
+        id: "m2",
+        title: "What is a State?",
+        order: 2,
+        isCompleted: false,
+        isStarted: false,
+      }, // Continue
+      { id: "m3", title: "useState & useEffect", order: 3, isCompleted: false }, // Start
+    ],
+    tasks: [
+      {
+        id: "t1",
+        title: "State vs Hook",
+        dueAt: "2026-05-08",
+        isSubmitted: false,
+      },
+      {
+        id: "t2",
+        title: "useEffect vs useState",
+        dueAt: "2026-07-09",
+        isSubmitted: false,
+      },
+    ],
+  },
 ];
 
 export const MOCK_SUBMISSIONS = [
@@ -92,3 +129,8 @@ export const MOCK_ORG = {
   id: "org-123",
   name: "Acme Learning Corp",
 };
+
+export const MOCK_ENROLLMENTS = [
+  { employeeId: "u1", programId: "p1", status: "ACTIVE" },
+  { employeeId: "u1", programId: "p2", status: "ACTIVE" },
+];
