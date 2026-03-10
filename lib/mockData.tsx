@@ -6,7 +6,7 @@ export const MOCK_USER = {
   id: "u1",
   name: "Arooj Ilyas",
   email: "arooj@utoronto.ca",
-  role: "ADMIN" as Role, // Change this to test different views
+  role: "EMPLOYEE" as Role, // Change this to test different views
   orgId: "org1",
 };
 
