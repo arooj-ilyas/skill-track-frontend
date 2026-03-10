@@ -14,11 +14,54 @@ export const MOCK_PROGRAMS = [
   {
     id: "p1",
     title: "Onboarding 101",
-    description: "Welcome to the company!",
+    description: "Welcome to the company! Initial training for all new staff.",
     modules: [
-      { id: "m1", title: "Company Culture", order: 1 },
-      { id: "m2", title: "Security Protocols", order: 2 },
+      { id: "m1", title: "Culture", order: 1, isCompleted: true }, // Review
+      {
+        id: "m2",
+        title: "Security",
+        order: 2,
+        isCompleted: false,
+        isStarted: true,
+      }, // Continue
+      { id: "m3", title: "Safety", order: 3, isCompleted: false }, // Start
     ],
+    tasks: [
+      {
+        id: "t1",
+        title: "Safety Protocol Quiz",
+        dueAt: "2026-04-01",
+        isSubmitted: true,
+      },
+      {
+        id: "t2",
+        title: "Signed Conduct Agreement",
+        dueAt: "2026-04-05",
+        isSubmitted: false,
+      },
+    ],
+  },
+  {
+    id: "p2",
+    title: "Advanced React Concepts",
+    description:
+      "A deep dive into hooks, patterns, and performance optimization.",
+    modules: [
+      {
+        id: "m3",
+        title: "Understanding Reconciliation",
+        order: 1,
+        isCompleted: false,
+      },
+      { id: "m4", title: "Custom Hook Patterns", order: 2, isCompleted: false },
+      {
+        id: "m5",
+        title: "Server Components 101",
+        order: 3,
+        isCompleted: false,
+      },
+    ],
+    tasks: [],
   },
 ];
 
