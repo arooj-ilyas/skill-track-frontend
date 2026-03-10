@@ -1,41 +1,61 @@
 // lib/mockData.ts
 
-export type Role = "ADMIN" | "EMPLOYEE";
+export type Role = "ADMIN" | "TRAINER" | "EMPLOYEE";
 
 export const MOCK_USER = {
   id: "u1",
   name: "Arooj Ilyas",
   email: "arooj@utoronto.ca",
-  role: "EMPLOYEE" as Role, // Change this to test different views
+  role: "EMPLOYEE" as Role,
   orgId: "org1",
+};
+
+export const MOCK_ORG = {
+  id: "org1",
+  name: "Acme Learning Corp",
 };
 
 export const MOCK_PROGRAMS = [
   {
     id: "p1",
+    orgId: "org1",
     title: "Onboarding 101",
     description: "Welcome to the company! Initial training for all new staff.",
+    createdBy: "admin-1",
     modules: [
-      { id: "m1", title: "Culture", order: 1, isCompleted: true }, // Review
       {
-        id: "m2",
+        id: "p1m1",
+        title: "Culture",
+        order: 1,
+        isCompleted: true,
+        isStarted: true,
+      },
+      {
+        id: "p1m2",
         title: "Security",
         order: 2,
         isCompleted: false,
         isStarted: true,
-      }, // Continue
-      { id: "m3", title: "Safety", order: 3, isCompleted: false }, // Start
+      },
+      {
+        id: "p1m3",
+        title: "Safety",
+        order: 3,
+        isCompleted: false,
+        isStarted: false,
+      },
     ],
     tasks: [
       {
-        id: "t1",
-        programId: "p1",
+        id: "p1t1", // Unique ID
+        moduleId: "p1m3",
         title: "Safety Protocol Quiz",
         dueAt: "2026-04-05",
         isSubmitted: true,
       },
       {
-        id: "t2",
+        id: "p1t2", // Unique ID
+        moduleId: "p1m1",
         title: "Signed Conduct Agreement",
         dueAt: "2026-04-05",
         isSubmitted: true,
@@ -44,57 +64,85 @@ export const MOCK_PROGRAMS = [
   },
   {
     id: "p2",
+    orgId: "org1",
     title: "Advanced React Concepts",
     description:
       "A deep dive into hooks, patterns, and performance optimization.",
+    createdBy: "admin-1",
     modules: [
       {
-        id: "m3",
+        id: "p2m1",
         title: "Understanding Reconciliation",
         order: 1,
         isCompleted: false,
+        isStarted: true,
       },
-      { id: "m4", title: "Custom Hook Patterns", order: 2, isCompleted: false },
       {
-        id: "m5",
+        id: "p2m2",
+        title: "Custom Hook Patterns",
+        order: 2,
+        isCompleted: false,
+        isStarted: false,
+      },
+      {
+        id: "p2m3",
         title: "Server Components 101",
         order: 3,
         isCompleted: false,
+        isStarted: false,
       },
     ],
-    tasks: [],
+    tasks: [
+      {
+        id: "p2t1", // Unique ID - previously was colliding as 't1'
+        moduleId: "p2m1",
+        title: "Intro Quiz",
+        dueAt: "2026-08-05",
+        isSubmitted: false,
+      },
+    ],
   },
   {
     id: "p3",
+    orgId: "org1",
     title: "Hooks & States",
     description:
       "Learn all about hooks & states, what they are and how to implement them",
+    createdBy: "admin-1",
     modules: [
       {
-        id: "m1",
+        id: "p3m1",
         title: "Understanding Hooks",
         order: 1,
         isCompleted: false,
         isStarted: false,
-      }, // Review
+      },
       {
-        id: "m2",
+        id: "p3m2",
         title: "What is a State?",
         order: 2,
         isCompleted: false,
         isStarted: false,
-      }, // Continue
-      { id: "m3", title: "useState & useEffect", order: 3, isCompleted: false }, // Start
+      },
+      {
+        id: "p3m3",
+        title: "useState & useEffect",
+        order: 3,
+        isCompleted: false,
+        isStarted: false,
+      },
     ],
     tasks: [
       {
-        id: "t1",
+        id: "p3t1",
+        moduleId: "p3m1",
         title: "State vs Hook",
         dueAt: "2026-05-08",
         isSubmitted: false,
       },
       {
-        id: "t2",
+        id: "p3t2",
+        moduleId: "p3m3",
         title: "useEffect vs useState",
         dueAt: "2026-07-09",
         isSubmitted: false,
@@ -106,7 +154,7 @@ export const MOCK_PROGRAMS = [
 export const MOCK_SUBMISSIONS = [
   {
     id: "sub-1",
-    taskId: "t1",
+    taskId: "p1t1", // Corrected to unique ID
     employeeId: "u1",
     storageKey: "safety_quiz_results.pdf",
     status: "REVIEWED",
@@ -118,7 +166,7 @@ export const MOCK_SUBMISSIONS = [
   },
   {
     id: "sub-2",
-    taskId: "t2",
+    taskId: "p1t2", // Corrected to unique ID
     employeeId: "u1",
     storageKey: "culture_reflection.docx",
     status: "PENDING",
@@ -126,12 +174,22 @@ export const MOCK_SUBMISSIONS = [
   },
 ];
 
-export const MOCK_ORG = {
-  id: "org-123",
-  name: "Acme Learning Corp",
-};
-
 export const MOCK_ENROLLMENTS = [
   { employeeId: "u1", programId: "p1", status: "ACTIVE" },
   { employeeId: "u1", programId: "p2", status: "ACTIVE" },
+];
+
+export const MOCK_PROGRESS = [
+  {
+    employeeId: "u1",
+    programId: "p1",
+    completionPct: 33,
+    lastUpdated: "2026-03-10",
+  },
+  {
+    employeeId: "u1",
+    programId: "p2",
+    completionPct: 10,
+    lastUpdated: "2026-03-10",
+  },
 ];
