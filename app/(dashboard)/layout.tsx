@@ -36,46 +36,42 @@ export default function DashboardLayout({
             variant="ghost"
             className="w-full justify-start gap-3"
           >
-            <Link href="/dashboard">
-              <LayoutDashboard size={18} /> Overview
+            <Link href="/employee">
+              <UserCircle size={18} /> Profile
             </Link>
           </Button>
+
           <Button
             asChild
             variant="ghost"
             className="w-full justify-start gap-3"
           >
             <Link href="/programs">
-              <BookOpen size={18} /> Programs
+              <BookOpen size={18} /> My Programs
             </Link>
           </Button>
+
           <Button
             asChild
             variant="ghost"
             className="w-full justify-start gap-3"
           >
-            <Link href="/employee">
-              <UserCircle size={18} /> My Progress
+            <Link href="/catalogue">
+              <LayoutDashboard size={18} /> Catalogue
             </Link>
           </Button>
 
-          {/* Management section only for non-employees */}
-          {MOCK_USER.role !== "EMPLOYEE" && (
-            <>
-              <div className="pt-4 pb-2 px-2 text-xs font-semibold text-zinc-400 uppercase">
-                Management
-              </div>
-              <Button
-                asChild
-                variant="ghost"
-                className="w-full justify-start gap-3"
-              >
-                <Link href="/submissions">
-                  <CheckSquare size={18} /> Submissions
-                </Link>
-              </Button>
-            </>
-          )}
+          <>
+            <Button
+              asChild
+              variant="ghost"
+              className="w-full justify-start gap-3"
+            >
+              <Link href="/submissions">
+                <CheckSquare size={18} /> Submissions
+              </Link>
+            </Button>
+          </>
         </nav>
 
         <div className="p-4 border-t">

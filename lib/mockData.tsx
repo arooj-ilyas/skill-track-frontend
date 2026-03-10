@@ -37,7 +37,7 @@ export const MOCK_PROGRAMS = [
         id: "t2",
         title: "Signed Conduct Agreement",
         dueAt: "2026-04-05",
-        isSubmitted: false,
+        isSubmitted: true,
       },
     ],
   },
@@ -67,10 +67,28 @@ export const MOCK_PROGRAMS = [
 
 export const MOCK_SUBMISSIONS = [
   {
-    id: "s1",
+    id: "sub-1",
     taskId: "t1",
-    employeeName: "John Doe",
+    employeeId: "u1",
+    storageKey: "safety_quiz_results.pdf",
+    status: "REVIEWED",
+    reviewedBy: "Sarah Trainer",
+    feedback:
+      "Excellent understanding of safety protocols. Make sure to review the fire exit section one more time.",
+    score: 95,
+    submittedAt: "2026-03-08",
+  },
+  {
+    id: "sub-2",
+    taskId: "t2",
+    employeeId: "u1",
+    storageKey: "culture_reflection.docx",
     status: "PENDING",
-    submittedAt: "2026-03-09",
+    submittedAt: "2026-03-10",
   },
 ];
+
+export const MOCK_ORG = {
+  id: "org-123",
+  name: "Acme Learning Corp",
+};

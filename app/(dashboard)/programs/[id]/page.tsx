@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MOCK_PROGRAMS } from "@/lib/mockData";
+import { MOCK_PROGRAMS, MOCK_SUBMISSIONS } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
@@ -24,20 +24,25 @@ export default async function ProgramDetailPage({
   const { id } = await params;
   const program = MOCK_PROGRAMS.find((p) => p.id === id);
 
-  if (!program) notFound();
+  if (!program) {
+    notFound();
+  }
 
-  const { modulePercent, taskPercent, totalPercent, isFullyComplete, stats } =
+  // Use the shared utility for all math/stats
+  const { modulePercent, totalPercent, isFullyComplete, stats } =
     calculateProgramProgress(id);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
+      {/* Breadcrumb */}
       <Button
         variant="ghost"
         asChild
         className="gap-2 -ml-2 text-zinc-500 hover:text-amber-600"
       >
         <Link href="/programs">
-          <ChevronLeft className="h-4 w-4" /> Back to Programs
+          <ChevronLeft className="h-4 w-4" />
+          Back to Programs
         </Link>
       </Button>
 
@@ -54,7 +59,7 @@ export default async function ProgramDetailPage({
             >
               {isFullyComplete ? "Completed" : "In Progress"}
             </Badge>
-            <span className="text-xs text-zinc-400 font-medium tracking-wider uppercase">
+            <span className="text-xs text-zinc-400 font-medium uppercase tracking-wider">
               ID: {id}
             </span>
           </div>
@@ -68,11 +73,13 @@ export default async function ProgramDetailPage({
       </div>
 
       <div className="grid gap-8 md:grid-cols-3">
+        {/* Main Content Area */}
         <div className="md:col-span-2 space-y-10">
-          {/* Modules Section */}
+          {/* 1. Modules Section (Learning) */}
           <div className="space-y-4">
             <h3 className="text-xl font-semibold flex items-center gap-2 text-zinc-800">
-              <FileText className="h-5 w-5 text-amber-700" /> Curriculum Modules
+              <FileText className="h-5 w-5 text-amber-700" />
+              Curriculum Modules
             </h3>
             <div className="grid gap-3">
               {program.modules.map((module, index) => {
@@ -82,16 +89,16 @@ export default async function ProgramDetailPage({
                 return (
                   <Card
                     key={module.id}
-                    className={`group border transition-all duration-200 shadow-sm ${
+                    className={`group border-2 transition-all duration-200 shadow-sm ${
                       isCompleted
-                        ? "bg-emerald-50 border-transparent opacity-90"
+                        ? "border-transparent opacity-90"
                         : "border-transparent hover:border-amber-500 cursor-pointer"
                     }`}
                   >
                     <CardContent className="p-4 flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div
-                          className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold ${
+                          className={`h-10 w-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
                             isCompleted
                               ? "bg-emerald-100 text-emerald-700"
                               : isStarted
@@ -107,7 +114,11 @@ export default async function ProgramDetailPage({
                         </div>
                         <div>
                           <h4
-                            className={`font-medium ${isCompleted ? "text-zinc-500" : "text-zinc-900 group-hover:text-amber-700"}`}
+                            className={`font-medium transition-colors ${
+                              isCompleted
+                                ? "text-zinc-500"
+                                : "text-zinc-900 group-hover:text-amber-700"
+                            }`}
                           >
                             {module.title}
                           </h4>
@@ -116,6 +127,7 @@ export default async function ProgramDetailPage({
                           </p>
                         </div>
                       </div>
+
                       <Button
                         size="sm"
                         variant={isCompleted ? "outline" : "default"}
@@ -140,59 +152,91 @@ export default async function ProgramDetailPage({
             </div>
           </div>
 
-          {/* Assignments Section */}
+          {/* 2. Assignments Section (Deliverables) */}
           {stats.totalTasks > 0 && (
             <div className="space-y-4">
               <h3 className="text-xl font-semibold flex items-center gap-2 pt-4 border-t border-zinc-100">
-                <ClipboardCheck className="h-5 w-5 text-amber-700" /> Required
-                Assignments
+                <ClipboardCheck className="h-5 w-5 text-amber-700" />
+                Required Assignments
               </h3>
               <div className="grid gap-3">
-                {program.tasks?.map((task) => (
-                  <Card
-                    key={task.id}
-                    className={`border transition-all duration-200 ${
-                      task.isSubmitted
-                        ? "bg-emerald-50 opacity-90"
-                        : "border-orange-100 hover:border-amber-500 cursor-pointer"
-                    }`}
-                  >
-                    <CardContent className="p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`h-10 w-10 rounded-full flex items-center justify-center ${task.isSubmitted ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}
-                        >
-                          {task.isSubmitted ? (
-                            <CheckCircle2 className="h-5 w-5" />
-                          ) : (
-                            <FileUp className="h-5 w-5" />
-                          )}
-                        </div>
-                        <div>
-                          <h4
-                            className={`font-medium ${task.isSubmitted ? "text-zinc-500" : "text-zinc-900 group-hover:text-amber-700"}`}
+                {program.tasks?.map((task) => {
+                  const submission = MOCK_SUBMISSIONS.find(
+                    (s) => s.taskId === task.id,
+                  );
+                  const isReviewed = submission?.status === "REVIEWED";
+                  const isSubmitted = task.isSubmitted;
+
+                  return (
+                    <Card
+                      key={task.id}
+                      className={`border-2 transition-all duration-200 ${
+                        isSubmitted
+                          ? "bg-emerald-50/30 border-emerald-100 opacity-90"
+                          : "bg-orange-50/30 border-orange-100 hover:border-amber-500 cursor-pointer"
+                      }`}
+                    >
+                      <CardContent className="p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className={`h-10 w-10 rounded-full flex items-center justify-center ${
+                              isSubmitted
+                                ? "bg-emerald-100 text-emerald-700"
+                                : "bg-amber-100 text-amber-700"
+                            }`}
                           >
-                            {task.title}
-                          </h4>
-                          <div className="flex items-center gap-2 text-xs text-zinc-500">
-                            <Calendar className="h-3 w-3" /> Due: {task.dueAt}
+                            {isSubmitted ? (
+                              <CheckCircle2 className="h-5 w-5" />
+                            ) : (
+                              <FileUp className="h-5 w-5" />
+                            )}
+                          </div>
+                          <div>
+                            <h4
+                              className={`font-medium transition-colors ${
+                                isSubmitted
+                                  ? "text-zinc-500"
+                                  : "text-zinc-900 group-hover:text-amber-700"
+                              }`}
+                            >
+                              {task.title}
+                            </h4>
+                            <div className="flex items-center gap-2 text-xs text-zinc-500">
+                              <Calendar className="h-3 w-3" /> Due: {task.dueAt}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant={task.isSubmitted ? "outline" : "default"}
-                        className={
-                          task.isSubmitted
-                            ? "border-emerald-300 text-emerald-700 hover:bg-emerald-200"
-                            : "bg-amber-600 hover:bg-amber-700 text-white"
-                        }
-                      >
-                        {task.isSubmitted ? "View Submission" : "Submit Task"}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
+
+                        {isReviewed ? (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            asChild
+                            className="border-emerald-300 text-emerald-700 hover:bg-emerald-200 shadow-sm"
+                          >
+                            <Link href="/submissions">View Feedback</Link>
+                          </Button>
+                        ) : isSubmitted ? (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled
+                            className="border-zinc-200 text-zinc-400 bg-zinc-50 opacity-100"
+                          >
+                            Pending Review
+                          </Button>
+                        ) : (
+                          <Button
+                            size="sm"
+                            className="bg-amber-600 hover:bg-amber-700 text-white border-none shadow-sm"
+                          >
+                            Submit Task
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -214,11 +258,12 @@ export default async function ProgramDetailPage({
                 </div>
                 <div className="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-amber-600 transition-all duration-1000"
+                    className="h-full bg-amber-600 transition-all duration-1000 ease-out"
                     style={{ width: `${totalPercent}%` }}
                   />
                 </div>
               </div>
+
               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-zinc-800 text-center">
                 <div>
                   <p className="text-[10px] text-zinc-300 uppercase font-bold tracking-widest mb-1">
@@ -235,7 +280,7 @@ export default async function ProgramDetailPage({
                     Tasks
                   </p>
                   <p
-                    className={`text-xl font-bold ${taskPercent === 100 ? "text-emerald-400" : "text-white"}`}
+                    className={`text-xl font-bold ${stats.completedTasks === stats.totalTasks ? "text-emerald-400" : "text-white"}`}
                   >
                     {stats.completedTasks}/{stats.totalTasks}
                   </p>
