@@ -69,7 +69,7 @@ export default function DashboardLayout({
                   <LayoutDashboard size={18} /> Catalogue
                 </Link>
               </Button>
-              <Button
+              {/* <Button
                 asChild
                 variant="ghost"
                 className="w-full justify-start gap-3"
@@ -77,7 +77,7 @@ export default function DashboardLayout({
                 <Link href="/submissions">
                   <CheckSquare size={18} /> My Submissions
                 </Link>
-              </Button>
+              </Button> */}
             </div>
           </div>
 

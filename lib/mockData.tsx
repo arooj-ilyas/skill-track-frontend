@@ -1,6 +1,6 @@
 // lib/mockData.ts
 
-export type Role = "ADMIN" | "TRAINER" | "EMPLOYEE";
+export type Role = "ADMIN" | "EMPLOYEE";
 
 export const MOCK_USER = {
   id: "u1",
@@ -14,6 +14,37 @@ export const MOCK_ORG = {
   id: "org1",
   name: "Acme Learning Corp",
 };
+
+export const MOCK_ORG_USERS = [
+  {
+    id: "u1",
+    name: "Arooj Ilyas",
+    email: "arooj@utoronto.ca",
+    role: "ADMIN" as Role,
+    orgId: "org1",
+  },
+  {
+    id: "u2",
+    name: "John Smith",
+    email: "john.s@acme.com",
+    role: "EMPLOYEE" as Role,
+    orgId: "org1",
+  },
+  {
+    id: "u3",
+    name: "Sarah Chen",
+    email: "s.chen@acme.com",
+    role: "EMPLOYEE" as Role,
+    orgId: "org1",
+  },
+  {
+    id: "u4",
+    name: "Mike Ross",
+    email: "m.ross@acme.com",
+    role: "EMPLOYEE" as Role,
+    orgId: "org1",
+  },
+];
 
 export const MOCK_PROGRAMS = [
   {
@@ -34,7 +65,7 @@ export const MOCK_PROGRAMS = [
         id: "p1m2",
         title: "Security",
         order: 2,
-        isCompleted: false,
+        isCompleted: true,
         isStarted: true,
       },
       {
