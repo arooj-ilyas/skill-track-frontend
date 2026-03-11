@@ -6,7 +6,7 @@ export const MOCK_USER = {
   id: "u1",
   name: "Arooj Ilyas",
   email: "arooj@utoronto.ca",
-  role: "EMPLOYEE" as Role,
+  role: "ADMIN" as Role,
   orgId: "org1",
 };
 

@@ -21,7 +21,7 @@ export default function LoginPage() {
             <label className="text-sm font-medium">Password</label>
             <Input placeholder="••••••••" type="password" />
           </div>
-          <Link href="/dashboard" className="w-full">
+          <Link href="/programs" className="w-full">
             <Button className="w-full mt-2">Sign In</Button>
           </Link>
         </CardContent>
