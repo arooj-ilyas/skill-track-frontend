@@ -93,16 +93,7 @@ export default function DashboardLayout({
                   variant="ghost"
                   className="w-full justify-start gap-3 text-zinc-600"
                 >
-                  <Link href="/admin">
-                    <ShieldCheck size={18} /> Admin Overview
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="w-full justify-start gap-3 text-zinc-600"
-                >
-                  <Link href="/admin/programs">
+                  <Link href="/admin/manage-programs">
                     <Layers size={18} /> Manage Programs
                   </Link>
                 </Button>
