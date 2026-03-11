@@ -106,8 +106,56 @@ export default function AdminDirectoryPage() {
           })}
         </TabsContent>
 
-        <TabsContent value="people">
-          {/* ... existing People Tab logic ... */}
+        <TabsContent value="people" className="grid gap-3">
+          {MOCK_ORG_USERS.map((user) => {
+            const userEnrollments = MOCK_ENROLLMENTS.filter(
+              (e) => e.employeeId === user.id,
+            );
+
+            return (
+              <Card
+                key={user.id}
+                className="hover:bg-zinc-50 transition-colors border-zinc-200"
+              >
+                <CardContent className="p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-zinc-100 p-2 rounded text-zinc-600">
+                      <UserIcon size={18} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-zinc-900">
+                          {user.name}
+                        </h3>
+                        {user.role === "ADMIN" && (
+                          <Badge className="text-[9px] h-4">ADMIN</Badge>
+                        )}
+                      </div>
+                      <p className="text-xs text-zinc-400 flex items-center gap-1">
+                        <Mail size={10} /> {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <div className="text-right">
+                      <p className="text-sm font-medium text-zinc-700">
+                        {userEnrollments.length} Programs
+                      </p>
+                      <p className="text-[10px] uppercase text-zinc-400 font-bold tracking-tighter">
+                        Active Enrollments
+                      </p>
+                    </div>
+                    <Link
+                      href={`/admin/users/${user.id}`}
+                      className="text-zinc-300 hover:text-zinc-900"
+                    >
+                      <ChevronRight size={20} />
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </TabsContent>
       </Tabs>
     </div>
